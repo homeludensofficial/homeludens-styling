@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>STYLING TEAM OS · 1단계 시안</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="STYLING OS">
+<meta name="theme-color" content="#ecb85c">
+<link rel="stylesheet" href="pretendard.css">
+<style>
+:root{
+  --paper:#f6f4f2; --sheet:#ffffff; --ink:#2b2824; --ink-2:#5c564f; --ink-3:#8f877e;
+  --line:#e6e1dc; --line-2:#d3ccc5; --tint:#efebe7;
+  --brand:#46413a; --brand-ink:#ffffff; --gold:#ecb85c; --gold-2:#f5d9a3; --gold-soft:#fbf1dc; --gold-ink:#7a5a1c; --sand:#dbd6d1; --soft:#f1ede9;
+  --warn:var(--gold-ink); --warn-bg:var(--gold-soft);
+  --r:8px;
+  --f:"Pretendard Variable",-apple-system,"Apple SD Gothic Neo",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+
+/* 틀: 왼쪽 메뉴 + 작업 영역 */
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.side{background:var(--gold);color:var(--brand);padding:20px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px}
+.side .logo{display:flex;flex-direction:column;gap:6px;padding:0 8px 18px;border-bottom:1px solid rgba(70,65,58,.18);margin-bottom:12px}
+.side .logo img{width:132px}
+.side .logo span{font-size:12px;color:#6b5326;letter-spacing:.04em}
+.side h6{margin:14px 8px 4px;font-size:11px;font-weight:700;color:#7a5a1c;letter-spacing:.06em}
+.side a{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:6px;color:var(--brand);text-decoration:none;font-weight:500}
+.side a:hover{background:rgba(70,65,58,.08)}
+.side a[aria-current="page"]{background:rgba(255,255,255,.55);color:var(--brand);font-weight:700}
+.side a em{font-style:normal;font-size:11px;background:rgba(70,65,58,.12);padding:1px 7px;border-radius:10px}
+.side a[aria-current="page"] em{background:var(--gold)}
+.side a.later{color:#9a7838;pointer-events:none}
+.side a.later em{background:none;border:1px solid #b8914a;color:#9a7838}
+.side .me{margin-top:auto;padding:12px 10px 0;border-top:1px solid rgba(70,65,58,.18);font-size:12px;color:#6b5326}
+.side .me b{display:block;color:var(--brand);font-size:13px}
+
+main{min-width:0}
+.top{display:flex;align-items:center;gap:12px;padding:16px 32px;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:5}
+.top h1{font-size:18px;margin:0;font-weight:700;letter-spacing:-.01em}
+.top .date{color:var(--ink-3);font-size:13px}
+.top .sp{flex:1}
+.mock{font-size:12px;color:var(--warn);background:var(--warn-bg);padding:3px 10px;border-radius:12px}
+.page{padding:24px 32px 64px;max-width:1280px}
+
+.btn{border:1px solid var(--line-2);background:var(--sheet);color:var(--ink);text-decoration:none;padding:7px 14px;border-radius:6px;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.btn.sm{padding:4px 10px;font-size:12px}
+
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r)}
+.card > header{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.card > header h2{font-size:15px;margin:0;font-weight:700}
+.card > header small{color:var(--ink-3);font-size:12px}
+.card > header .sp{flex:1}
+.card .body{padding:14px 18px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r);padding:14px 18px}
+.kpi small{display:block;font-size:12px;color:var(--ink-3)}
+.kpi strong{display:block;font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:2px}
+.kpi span{font-size:12px;color:var(--ink-2)}
+.kpi.dark{background:var(--gold);border-color:var(--gold);color:var(--brand)}
+.kpi.dark small,.kpi.dark span{color:#6b5326}
+
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.stack{display:flex;flex-direction:column;gap:16px}
+
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 9px;border-radius:12px;background:var(--tint);color:var(--ink-2);white-space:nowrap}
+.chip.dark{background:var(--gold);color:var(--brand);font-weight:600}
+.chip.line{background:none;border:1px solid var(--line-2)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+
+/* 일정 */
+.sched{list-style:none;margin:0;padding:0}
+.sched li{display:grid;grid-template-columns:64px 72px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.sched li:last-child{border-bottom:0}
+.sched time{font-weight:700;font-variant-numeric:tabular-nums}
+.sched .who{color:var(--ink-3);font-size:12px}
+.sched b{font-weight:600}
+.sched p{margin:0;font-size:12px;color:var(--ink-3)}
+.day{font-size:12px;font-weight:700;color:var(--ink-3);padding:12px 0 2px;letter-spacing:.04em}
+
+/* 할 일 */
+.todo{list-style:none;margin:0;padding:0}
+.todo li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+.todo li:last-child{border-bottom:0}
+.todo input{margin-top:3px;accent-color:var(--gold)}
+.todo p{margin:0}
+.todo small{color:var(--ink-3);font-size:12px}
+.todo .due{margin-left:auto}
+
+/* 단계 막대 */
+.stages{display:flex;flex-direction:column;gap:8px}
+.stg{display:grid;grid-template-columns:84px 1fr 28px;align-items:center;gap:10px;font-size:13px}
+.stg .bar{height:8px;background:var(--tint);border-radius:4px;overflow:hidden}
+.stg .bar i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.stg b{text-align:right;font-variant-numeric:tabular-nums}
+
+/* 표 */
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line)}
+.tools input[type=search]{border:1px solid var(--line-2);border-radius:6px;padding:7px 12px;width:240px;background:var(--sheet)}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:var(--sheet);padding:6px 12px;font-size:13px;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--gold-soft);color:var(--brand);font-weight:700;box-shadow:inset 0 -2px 0 var(--gold)}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:12px;font-weight:600;color:var(--ink-3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--soft);white-space:nowrap}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr{cursor:pointer}
+.tbl tbody tr:hover td{background:var(--soft)}
+.tbl tbody tr[aria-selected="true"] td{background:var(--gold-soft)}
+.tbl tbody tr[aria-selected="true"] td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .addr{color:var(--ink-3);font-size:12px}
+.tbl .id{color:var(--ink-3);font-size:12px;font-variant-numeric:tabular-nums}
+.pay{display:flex;gap:3px}
+.pay i{width:18px;height:6px;border-radius:3px;background:var(--line-2)}
+.pay i.on{background:var(--gold)}
+
+.notice{font-size:12px;color:var(--ink-2);background:var(--soft);border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:16px}
+.notice b{color:var(--ink)}
+
+/* 계약 상세 패널 */
+.split{display:grid;grid-template-columns:1fr 400px;gap:16px;align-items:start}
+.detail{position:sticky;top:76px}
+.detail h3{font-size:18px;margin:0}
+.detail .meta{color:var(--ink-3);font-size:12px;margin-top:2px}
+.dl{display:grid;grid-template-columns:84px 1fr;gap:6px 12px;margin:0;font-size:13px}
+.dl dt{color:var(--ink-3)}
+.dl dd{margin:0}
+.sec{padding:14px 18px;border-top:1px solid var(--line)}
+.sec h4{margin:0 0 10px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.sec h4 small{font-weight:400;color:var(--ink-3)}
+.steps{display:flex;gap:2px;margin-bottom:6px}
+.steps i{flex:1;height:6px;background:var(--line);border-radius:2px}
+.steps i.on{background:var(--gold)}
+.steps i.now{background:var(--gold-2)}
+.steplbl{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3)}
+.payrow{display:grid;grid-template-columns:52px 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.payrow:last-child{border-bottom:0}
+.payrow .num{font-variant-numeric:tabular-nums;text-align:right}
+.files{display:flex;gap:6px;flex-wrap:wrap}
+.tbl td b,.tbl .sub,.tbl td:last-child,.tbl th{white-space:nowrap}
+.tbl td{word-break:keep-all}
+.split > .card:first-child{overflow-x:auto;min-width:0}
+@media (max-width:1280px){
+  .split{grid-template-columns:1fr 340px}
+  #cuTbl .m-hide{display:none}
+  #ctTbl th:nth-child(1),#ctTbl td:nth-child(1),#ctTbl th:nth-child(3),#ctTbl td:nth-child(3),#ctTbl th:nth-child(5),#ctTbl td:nth-child(5){display:none}
+}
+.tbl .tel{color:var(--ink-2);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .sub{color:var(--ink-3);font-size:12px}
+.chip.gold{background:var(--gold-soft);color:var(--gold-ink);font-weight:600}
+.cu-ct{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:9px 10px;border:1px solid var(--line);border-radius:6px;margin-bottom:6px;cursor:pointer;font-size:13px}
+.cu-ct:hover{border-color:var(--gold);background:var(--gold-soft)}
+.cu-ct small{display:block;color:var(--ink-3);font-size:11px}
+.cu-ct .num{font-variant-numeric:tabular-nums}
+.memo{background:var(--soft);border-radius:6px;padding:10px 12px;font-size:13px;color:var(--ink-2);margin-top:8px}
+.addlog{display:flex;gap:6px;margin-top:8px}
+.addlog input{flex:1;min-width:0;border:1px solid var(--line-2);border-radius:6px;padding:6px 10px;font-size:13px}
+.linkbtn{border:0;background:none;padding:0;color:var(--ink-2);font-size:12px;text-decoration:underline;text-underline-offset:2px}
+.linkbtn:hover{color:var(--ink)}
+.log{list-style:none;margin:0;padding:0;font-size:12px}
+.log li{padding:5px 0;color:var(--ink-2)}
+.log time{color:var(--ink-3);margin-right:6px;font-variant-numeric:tabular-nums}
+
+/* 칸반 */
+.board{display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--tint);border-radius:var(--r);padding:10px;min-height:420px}
+.col > h3{display:flex;justify-content:space-between;font-size:13px;margin:2px 4px 10px;font-weight:700}
+.col > h3 span{color:var(--ink-3);font-weight:500}
+.tk{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;cursor:grab}
+.tk:hover{border-color:var(--line-2);box-shadow:0 1px 4px rgba(70,65,58,.08)}
+.tk .row{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.tk b{font-size:14px}
+.tk p{margin:3px 0 8px;font-size:12px;color:var(--ink-3)}
+.tk .prog{height:4px;background:var(--tint);border-radius:2px;overflow:hidden;margin:8px 0 6px}
+.tk .prog i{display:block;height:100%;background:var(--gold)}
+.tk small{font-size:11px;color:var(--ink-3)}
+.dd{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--tint);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.dd.soon{background:var(--warn-bg);color:var(--warn)}
+
+/* 포트폴리오 */
+.filters{display:flex;flex-direction:column;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.frow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.frow > b{width:56px;font-size:12px;color:var(--ink-3);font-weight:600}
+.fbtn{border:1px solid var(--line-2);background:var(--sheet);border-radius:14px;padding:3px 11px;font-size:12px;color:var(--ink-2)}
+.fbtn[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold);color:var(--brand);font-weight:700}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:18px}
+.pf{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--sheet);cursor:pointer}
+.pf:hover{box-shadow:0 2px 10px rgba(70,65,58,.10)}
+.ph{aspect-ratio:4/3;position:relative;display:grid;grid-template-columns:1fr 1fr}
+.ph div{position:relative}
+.ph div::after{content:attr(data-l);position:absolute;left:8px;bottom:8px;font-size:10px;font-weight:700;color:#fff;background:rgba(43,40,36,.55);padding:1px 6px;border-radius:3px;letter-spacing:.04em}
+.ph .lock{position:absolute;top:8px;right:8px;font-size:11px;background:rgba(255,255,255,.92);padding:1px 8px;border-radius:10px;color:var(--ink-2)}
+.pf .in{padding:12px 14px}
+.pf .in b{font-size:14px}
+.pf .in p{margin:2px 0 8px;font-size:12px;color:var(--ink-3)}
+.pf .tags{display:flex;gap:4px;flex-wrap:wrap}
+.pf .ch{display:flex;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:11px;color:var(--ink-3)}
+.pf .ch span.on{color:var(--ink);font-weight:600}
+.pf .ch span.on::before{content:"● ";color:var(--gold)}
+.pf .ch span:not(.on)::before{content:"○ "}
+
+@media (max-width:960px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px 12px}
+  .side .logo{border:0;padding:0 8px 0 0;margin:0}
+  .side .logo span,.side h6,.side .me,.side a.later{display:none}
+  .top{padding:12px 16px}.page{padding:16px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .grid2,.split{grid-template-columns:1fr}
+  .detail{position:static}
+  .app,main,.page,.card{min-width:0}
+}
+@media (max-width:640px){
+  .side .logo img{width:110px}
+  .top .date{display:none}
+  .top h1,.mock{white-space:nowrap}
+  .top .btn.primary{padding:6px 10px;font-size:13px}
+  .tools input[type=search]{width:100%}
+  .seg{max-width:100%;overflow-x:auto}
+  #ctTbl th:nth-child(1),#ctTbl td:nth-child(1),#ctTbl th:nth-child(3),#ctTbl td:nth-child(3),#ctTbl th:nth-child(5),#ctTbl td:nth-child(5),.tbl .m-hide{display:none}
+  .tbl td,.tbl th{padding:10px 8px}
+  .tbl td:last-child{white-space:nowrap}
+  .sched li{grid-template-columns:52px 1fr;gap:2px 10px}
+  .sched time{grid-row:span 3;align-self:start;padding-top:2px}
+  .sched li > .chip{justify-self:start}
+  .kpi strong{font-size:22px}
+}
+
+/* 아래 메뉴 줄 + 화면 전체 상세: 휴대폰 */
+.tabbar,.mlogo,.back,.stagebar,.tk .nextbtn,.empty-col{display:none}
+.tk .nextbtn{width:100%;margin-top:10px;border:1px solid var(--line-2);background:var(--sheet);border-radius:6px;padding:8px;font-size:13px;font-weight:600;color:var(--brand)}
+@media (max-width:760px){
+  .app{display:block}
+  .side{display:none}
+  main{padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+  .top{padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));gap:10px}
+  .mlogo{display:block;height:15px;width:auto}
+  .top h1{font-size:16px;padding-left:10px;border-left:1px solid var(--line-2)}
+  .mock{display:none}
+  .page{padding:14px 14px 24px}
+  .notice{display:none}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:var(--sheet);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tabbar a{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 8px;color:var(--ink-3);text-decoration:none;font-size:11px;font-weight:500}
+  .tabbar svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .tabbar a[aria-current="page"]{color:var(--brand);font-weight:700}
+  .tabbar a[aria-current="page"]::before{content:"";position:absolute;top:0;left:50%;width:32px;height:3px;margin-left:-16px;border-radius:0 0 3px 3px;background:var(--gold)}
+  .tabbar a[aria-current="page"] svg{stroke-width:2}
+  .tabbar em{position:absolute;top:4px;left:calc(50% + 6px);font-style:normal;font-size:10px;font-weight:700;line-height:16px;min-width:16px;padding:0 4px;border-radius:8px;background:var(--gold);color:var(--brand);text-align:center}
+  .tabbar em:empty{display:none}
+  /* 목록을 누르면 상세가 화면 전체로 */
+  .split{display:block}
+  .detail{display:none}
+  .detail.open{display:block;position:fixed;inset:0;z-index:30;overflow-y:auto;border:0;border-radius:0;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+  .detail.open .back{display:flex;align-items:center;gap:4px;position:sticky;top:0;z-index:1;width:100%;border:0;border-bottom:1px solid var(--line);background:var(--sheet);padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top,0px));font-weight:600;color:var(--ink-2);text-align:left}
+  .tbl tbody tr[aria-selected="true"] td{background:none}
+  .tbl tbody tr[aria-selected="true"] td:first-child{box-shadow:none}
+  /* 진행 보드: 위에서 단계를 고르고, 그 단계 카드만 세로로 */
+  .stagebar{display:flex;gap:6px;overflow-x:auto;margin:0 -14px 12px;padding:0 14px}
+  .stagebar button{flex:none;border:1px solid var(--line-2);background:var(--sheet);border-radius:16px;padding:6px 12px;font-size:13px;color:var(--ink-2)}
+  .stagebar button b{font-weight:700;margin-left:4px;color:var(--ink-3)}
+  .stagebar button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold);color:var(--brand);font-weight:700}
+  .stagebar button[aria-pressed="true"] b{color:var(--gold-ink)}
+  .board{display:block}
+  .col{display:none;background:none;padding:0;min-height:0}
+  .col.on{display:block}
+  .col > h3{display:none}
+  .tk{padding:14px;margin-bottom:10px}
+  .tk .nextbtn{display:block}
+  .empty-col{display:block;color:var(--ink-3);text-align:center;padding:40px 0;font-size:13px}
+  .gallery{grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+  .pf .in{padding:10px}
+  .pf .ch{display:none}
+  .filters .frow{flex-wrap:nowrap;overflow-x:auto}
+  .frow > b{flex:none;width:44px}
+  .fbtn{flex:none}
+  .filters .frow,.stagebar,.seg{scrollbar-width:none}
+  .filters .frow::-webkit-scrollbar,.stagebar::-webkit-scrollbar,.seg::-webkit-scrollbar{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="side" aria-label="메뉴">
+    <div class="logo"><img src="logo.png" alt="HOMELUDENS"><span>STYLING TEAM OS</span></div>
+    <h6>오늘</h6>
+    <a href="#today" data-v="today">오늘</a>
+    <h6>스타일링</h6>
+    <a href="#customers" data-v="customers">고객 관리 <em id="n-cu">0</em></a>
+    <a href="#contracts" data-v="contracts">계약 관리 <em id="n-contracts">0</em></a>
+    <a href="#board" data-v="board">진행 보드 <em id="n-board">0</em></a>
+    <a href="#portfolio" data-v="portfolio">포트폴리오 <em id="n-pf">0</em></a>
+    <h6>2단계에서</h6>
+    <a class="later">제품 라이브러리 <em>준비 중</em></a>
+    <a class="later">제안서·무드보드 <em>준비 중</em></a>
+    <a class="later">발주·정산 <em>준비 중</em></a>
+    <div class="me"><b>이혜정 프로</b>스타일링팀 · 로그아웃</div>
+  </nav>
+
+  <main>
+    <div class="top">
+      <img class="mlogo" src="logo.png" alt="HOMELUDENS">
+      <h1 id="title">오늘</h1>
+      <span class="date">2026년 11월 9일 월요일</span>
+      <span class="sp"></span>
+      <span class="mock">시안 · 예시 데이터</span>
+      <button class="btn primary" id="addBtn" hidden>+ 포트폴리오 등록</button>
+    </div>
+
+    <!-- 오늘 -->
+    <section class="page" id="v-today">
+      <div class="kpis">
+        <div class="kpi"><small>진행 중 현장</small><strong id="k-active">0</strong><span>계약~촬영 단계</span></div>
+        <div class="kpi"><small>이번 달 계약</small><strong>6건</strong><span>1억 4,280만 원 · 전월 대비 +2건</span></div>
+        <div class="kpi"><small>이번 주 받을 돈</small><strong>3,120만</strong><span>잔금 2건 · 중도금 1건</span></div>
+        <div class="kpi dark"><small>촬영 대기</small><strong id="k-shoot">0</strong><span>설치 끝, 포트폴리오 전</span></div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <header><h2>일정</h2><small>미팅 · 설치 · 촬영</small><span class="sp"></span><button class="btn sm">캘린더로 보기</button></header>
+          <div class="body" style="padding-top:2px">
+            <div class="day">오늘 11.9 (월)</div>
+            <ul class="sched">
+              <li><time>10:00</time><span class="chip dark">설치</span><div><b>반포 래미안 34평 · 김서윤</b><p>거실·다이닝 가구 6점, 커튼 시공 동행</p></div><span class="who">이혜정 · 현장</span></li>
+              <li><time>14:00</time><span class="chip">미팅</span><div><b>판교 봇들마을 32평 · 정하늘</b><p>1차 제안 · 무드보드 2안 설명</p></div><span class="who">김지하 · 사무실</span></li>
+              <li><time>16:30</time><span class="chip line">실측</span><div><b>성수 트리마제 25평 · 오지민</b><p>계약 전 실측, 창 크기·콘센트 위치</p></div><span class="who">이준영 · 현장</span></li>
+            </ul>
+            <div class="day">내일 11.10 (화)</div>
+            <ul class="sched">
+              <li><time>11:00</time><span class="chip">촬영</span><div><b>목동 하이페리온 45평 · 박도윤</b><p>포토그래퍼 섭외 완료 · 비포 사진 있음</p></div><span class="who">이혜정</span></li>
+              <li><time>15:00</time><span class="chip">미팅</span><div><b>마곡 엠밸리 33평 · 한유진</b><p>최종 제품 확정 · 계약금 입금 확인</p></div><span class="who">김지하</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <header><h2>내 할 일</h2><small>담당 현장 체크리스트에서 모아 옴</small></header>
+            <div class="body" style="padding-top:4px">
+              <ul class="todo">
+                <li><input type="checkbox"><div><p>반포 김서윤 · 러그 배송일 확인</p><small>배송·설치 단계</small></div><span class="chip warn due">오늘</span></li>
+                <li><input type="checkbox"><div><p>판교 정하늘 · 무드보드 2안 PDF 공유</p><small>제안 단계</small></div><span class="chip warn due">오늘</span></li>
+                <li><input type="checkbox"><div><p>목동 박도윤 · 촬영 소품 챙기기</p><small>촬영 단계</small></div><span class="chip due">내일</span></li>
+                <li><input type="checkbox"><div><p>잠실 이서아 · 잔금 입금 확인</p><small>정산 단계</small></div><span class="chip due">11.12</span></li>
+                <li><input type="checkbox" checked><div><p style="color:var(--ink-3);text-decoration:line-through">위례 최민준 · 소파 발주서 보내기</p><small>발주 단계</small></div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card">
+            <header><h2>단계별 현장</h2><span class="sp"></span><a href="#board" class="btn sm" style="text-decoration:none">보드 열기</a></header>
+            <div class="body"><div class="stages" id="stageBars"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 고객 관리 -->
+    <section class="page" id="v-customers" hidden>
+      <div class="notice">계약리스트DB에 계약이 들어오면 고객이 자동으로 만들어집니다. 계약 전 상담 고객은 <b>+ 고객 등록</b>으로 직접 넣습니다. 한 고객에게 계약이 여러 건 붙을 수 있습니다.</div>
+      <div class="split">
+        <div class="card">
+          <div class="tools">
+            <input type="search" id="cuQ" placeholder="이름 · 연락처 · 현장 검색">
+            <div class="seg" id="cuSeg">
+              <button aria-pressed="true" data-f="all">전체</button>
+              <button aria-pressed="false" data-f="상담 중">상담 중</button>
+              <button aria-pressed="false" data-f="계약 고객">계약 고객</button>
+              <button aria-pressed="false" data-f="완료 고객">완료 고객</button>
+            </div>
+          </div>
+          <table class="tbl" id="cuTbl">
+            <thead><tr><th>고객</th><th class="m-hide">연락처</th><th class="m-hide">유입</th><th>상태</th><th class="num">계약</th><th class="m-hide">최근 연락</th><th>담당</th></tr></thead>
+            <tbody id="cuBody"></tbody>
+          </table>
+        </div>
+        <aside class="card detail" id="cuDetail"></aside>
+      </div>
+    </section>
+
+    <!-- 계약 관리 -->
+    <section class="page" id="v-contracts" hidden>
+      <div class="notice">계약 원본은 <b>계약리스트DB 시트</b>입니다. '스타일링' 품목만 10분마다 받아 옵니다. 계약가·고객 정보는 시트에서 고치고, 결제 회차·진행 단계·첨부는 여기서 기록합니다.</div>
+      <div class="split">
+        <div class="card">
+          <div class="tools">
+            <input type="search" id="q" placeholder="고객명 · 주소 · 담당자 검색">
+            <div class="seg" id="segFilter">
+              <button aria-pressed="true" data-f="all">전체</button>
+              <button aria-pressed="false" data-f="active">진행 중</button>
+              <button aria-pressed="false" data-f="money">받을 돈 있음</button>
+              <button aria-pressed="false" data-f="done">완료</button>
+            </div>
+            <span class="sp" style="flex:1"></span>
+            <label style="font-size:13px;color:var(--ink-2)"><input type="checkbox" id="mine" style="accent-color:var(--gold)"> 내 담당만</label>
+          </div>
+          <table class="tbl" id="ctTbl">
+            <thead><tr><th>번호</th><th>고객 · 현장</th><th>패키지</th><th class="num">계약가</th><th>결제</th><th>단계</th><th>담당</th></tr></thead>
+            <tbody id="ctBody"></tbody>
+          </table>
+        </div>
+        <aside class="card detail" id="detail"></aside>
+      </div>
+    </section>
+
+    <!-- 진행 보드 -->
+    <section class="page" id="v-board" hidden>
+      <div class="notice">카드를 옆 칸으로 끌면 단계가 바뀝니다. 카드 아래 막대는 그 단계 체크리스트를 얼마나 채웠는지입니다.</div>
+      <div class="stagebar" id="stageBar"></div>
+      <div class="board" id="boardEl"></div>
+    </section>
+
+    <!-- 포트폴리오 -->
+    <section class="page" id="v-portfolio" hidden>
+      <div class="card">
+        <div class="filters">
+          <div class="frow"><b>평형</b><span data-g="size"></span></div>
+          <div class="frow"><b>스타일</b><span data-g="style"></span></div>
+          <div class="frow"><b>공간</b><span data-g="space"></span></div>
+          <div class="frow"><b>공개</b><span data-g="open"></span></div>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<nav class="tabbar" aria-label="아래 메뉴">
+  <a href="#today" data-v="today"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>오늘</a>
+  <a href="#customers" data-v="customers"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>고객<em id="t-cu"></em></a>
+  <a href="#contracts" data-v="contracts"><svg viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10.5a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5z"/><path d="M14 3.5V8h4M9.5 12.5h5M9.5 16h5"/></svg>계약<em id="t-ct"></em></a>
+  <a href="#board" data-v="board"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="4.5" height="16" rx="1"/><rect x="9.75" y="4" width="4.5" height="11" rx="1"/><rect x="16" y="4" width="4.5" height="7" rx="1"/></svg>진행</a>
+  <a href="#portfolio" data-v="portfolio"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M4 17.5l5-4.5 3.5 3 3-2.5 4.5 4"/></svg>포트폴리오</a>
+</nav>
+
+<script>
+const STAGES=["상담","제안","계약","발주","배송·설치","촬영","정산 완료"];
+const C=[
+ {id:"2611s01",name:"김서윤",site:"반포 래미안 34평",addr:"서울 서초구 반포동",pkg:"홈스타일링 풀",price:38500000,paid:2,of:3,stage:4,who:"이혜정",done:5,total:8,d:0,next:"오늘 설치"},
+ {id:"2611s02",name:"정하늘",site:"판교 봇들마을 32평",addr:"경기 성남시 분당구 삼평동",pkg:"거실·다이닝",price:16800000,paid:0,of:2,stage:1,who:"김지하",done:2,total:5,d:0,next:"오늘 1차 제안"},
+ {id:"2611s03",name:"박도윤",site:"목동 하이페리온 45평",addr:"서울 양천구 목동",pkg:"홈스타일링 풀",price:52000000,paid:3,of:3,stage:5,who:"이혜정",done:2,total:4,d:1,next:"내일 촬영"},
+ {id:"2611s04",name:"한유진",site:"마곡 엠밸리 33평",addr:"서울 강서구 마곡동",pkg:"거실·침실",price:21400000,paid:1,of:3,stage:2,who:"김지하",done:3,total:6,d:1,next:"제품 확정"},
+ {id:"2610s11",name:"최민준",site:"위례 자연앤 29평",addr:"경기 성남시 수정구 창곡동",pkg:"거실 집중",price:9800000,paid:1,of:2,stage:3,who:"이준영",done:4,total:7,d:5,next:"소파 입고 11.14"},
+ {id:"2610s09",name:"이서아",site:"잠실 엘스 33평",addr:"서울 송파구 잠실동",pkg:"홈스타일링 풀",price:34200000,paid:2,of:3,stage:6,who:"이혜정",done:1,total:2,d:3,next:"잔금 11.12"},
+ {id:"2610s07",name:"윤채원",site:"광교 중흥S 40평",addr:"경기 수원시 영통구 이의동",pkg:"홈스타일링 풀",price:41000000,paid:2,of:3,stage:4,who:"이준영",done:3,total:8,d:6,next:"설치 11.15"},
+ {id:"2611s05",name:"오지민",site:"성수 트리마제 25평",addr:"서울 성동구 성수동",pkg:"원룸·소형",price:7200000,paid:0,of:2,stage:0,who:"이준영",done:1,total:4,d:0,next:"오늘 실측"},
+ {id:"2610s04",name:"강하준",site:"한남 나인원 62평",addr:"서울 용산구 한남동",pkg:"홈스타일링 풀",price:88000000,paid:2,of:3,stage:3,who:"김지하",done:5,total:7,d:9,next:"조명 해외 발주"},
+ {id:"2609s12",name:"서지우",site:"용인 수지 자이 38평",addr:"경기 용인시 수지구",pkg:"거실·다이닝",price:18600000,paid:2,of:2,stage:6,who:"이혜정",done:2,total:2,d:null,next:"완료"},
+ {id:"2611s06",name:"문시우",site:"송도 더샵 34평",addr:"인천 연수구 송도동",pkg:"거실·침실",price:19900000,paid:0,of:2,stage:1,who:"이혜정",done:0,total:5,d:4,next:"제안 11.13"},
+ {id:"2611s07",name:"서지우",site:"용인 수지 자이 38평 · 침실 추가",addr:"경기 용인시 수지구",pkg:"침실 추가",price:6400000,paid:0,of:2,stage:0,who:"이혜정",done:1,total:4,d:2,next:"추가 상담 11.11"},
+];
+/* 고객: 계약은 이름으로 이어 붙임(실제 앱에서는 고객 번호로 연결) */
+const CU=[
+ {name:"김서윤",tel:"010-****-1245",src:"인스타그램",who:"이혜정",first:"09.18",last:"11.08",fam:"부부 + 초등 자녀 1",taste:["모던","웜톤","원목"],pet:"",consent:"동의",memo:"거실 TV 벽은 비워 두길 원함. 아이 책상은 2단계에서 따로 견적.",
+  log:[["11.08","이혜정","설치 시간 10시로 확정, 주차 안내 문자 보냄"],["10.21","김지하","최종 제품 리스트 승인"],["09.18","이혜정","인스타 DM 문의 → 전화 상담"]]},
+ {name:"정하늘",tel:"010-****-2529",src:"오늘의집",who:"김지하",first:"10.30",last:"11.06",fam:"신혼 부부",taste:["내추럴","라이트톤"],pet:"고양이 1",consent:"대기",memo:"고양이 때문에 패브릭 소파는 피하고 싶어 함.",
+  log:[["11.06","김지하","1차 제안 일정 11.9 14시 확정"],["10.30","김지하","오늘의집 사례 보고 문의"]]},
+ {name:"박도윤",tel:"010-****-2129",src:"회사 홈페이지",who:"이혜정",first:"08.02",last:"11.07",fam:"부부 + 중학생 2",taste:["미드센추리","월넛"],pet:"",consent:"동의",memo:"촬영 때 가족사진 액자는 치워 달라고 함.",
+  log:[["11.07","이혜정","촬영일 안내, 포토그래퍼 확정"],["08.02","이혜정","홈페이지 문의폼 접수"]]},
+ {name:"한유진",tel:"010-****-5795",src:"블로그",who:"김지하",first:"10.11",last:"11.05",fam:"1인 가구",taste:["모던 클래식","그레이"],pet:"강아지 1",consent:"미동의",memo:"집 사진은 외부에 쓰지 않기로 함.",
+  log:[["11.05","김지하","계약금 입금 확인"],["10.11","김지하","블로그 글 보고 전화 문의"]]},
+ {name:"최민준",tel:"010-****-0889",src:"지인 소개",who:"이준영",first:"10.02",last:"11.04",fam:"부부",taste:["내추럴"],pet:"",consent:"대기",memo:"서지우 고객 소개.",
+  log:[["11.04","이준영","소파 입고일 11.14 안내"],["10.02","이준영","지인 소개로 문의"]]},
+ {name:"이서아",tel:"010-****-1803",src:"인스타그램",who:"이혜정",first:"07.20",last:"11.03",fam:"부부 + 영아 1",taste:["모던 클래식","화이트"],pet:"",consent:"동의",memo:"잔금 11.12 예정. 아기방 추가 문의 가능성 있음.",
+  log:[["11.03","이혜정","잔금 일정 문자 안내"],["07.20","이혜정","인스타 DM 문의"]]},
+ {name:"윤채원",tel:"010-****-9062",src:"오늘의집",who:"이준영",first:"09.05",last:"11.06",fam:"부부 + 자녀 2",taste:["내추럴","라탄"],pet:"",consent:"동의",memo:"",
+  log:[["11.06","이준영","설치일 11.15 확정"],["09.05","이준영","오늘의집 문의"]]},
+ {name:"오지민",tel:"010-****-4916",src:"인스타그램",who:"이준영",first:"11.04",last:"11.04",fam:"1인 가구",taste:["모던"],pet:"",consent:"대기",memo:"예산 700만 원 안쪽 희망.",
+  log:[["11.04","이준영","실측 일정 11.9 16:30 잡음"]]},
+ {name:"강하준",tel:"010-****-3753",src:"지인 소개",who:"김지하",first:"08.27",last:"11.02",fam:"부부",taste:["모던","블랙 포인트"],pet:"",consent:"미동의",memo:"VIP. 연락은 오후 2시 이후 선호.",
+  log:[["11.02","김지하","조명 해외 발주, 입고 6주 안내"],["08.27","김지하","대표님 소개"]]},
+ {name:"서지우",tel:"010-****-8659",src:"회사 홈페이지",who:"이혜정",first:"06.14",last:"11.07",fam:"부부 + 고등학생 1",taste:["내추럴","리넨"],pet:"",consent:"동의",memo:"거실 시공 만족도 높음. 최민준 고객 소개해 줌. 침실 추가 문의.",
+  log:[["11.07","이혜정","침실 추가 문의 전화, 11.11 방문 상담"],["09.30","이혜정","정산 완료"],["06.14","이혜정","홈페이지 문의"]]},
+ {name:"문시우",tel:"010-****-7741",src:"블로그",who:"이혜정",first:"10.25",last:"11.01",fam:"부부",taste:["미드센추리"],pet:"",consent:"대기",memo:"",
+  log:[["11.01","이혜정","무드보드 방향 통화"]]},
+ {name:"임나래",tel:"010-****-6620",src:"오늘의집",who:"김지하",first:"11.07",last:"11.07",fam:"부부 + 미취학 1",taste:["내추럴"],pet:"",consent:"대기",memo:"입주 12월 말. 견적 먼저 받아 보고 싶어 함.",
+  log:[["11.07","김지하","전화 상담, 평면도 받기로 함"]]},
+ {name:"배준호",tel:"010-****-3318",src:"지인 소개",who:"이준영",first:"11.05",last:"11.06",fam:"1인 가구",taste:["모던","그레이"],pet:"고양이 2",consent:"대기",memo:"오피스텔 22평. 견적서 보내고 회신 기다리는 중.",
+  log:[["11.06","이준영","견적서 메일 발송"],["11.05","이준영","강하준 고객 소개로 문의"]]},
+];
+const PF=[
+ {site:"서OO · 용인 수지 자이",size:"30평대",style:"내추럴",space:["거실","다이닝"],open:"공개",tone:["#d9cfc3","#b9a996"],ch:["인스타","블로그"]},
+ {site:"이OO · 잠실 엘스",size:"30평대",style:"모던 클래식",space:["거실","침실"],open:"공개",tone:["#c9c2ba","#8d8277"],ch:["인스타","오늘의집"]},
+ {site:"강OO · 청담 자이",size:"50평 이상",style:"모던",space:["거실","서재"],open:"내부용",tone:["#bdb5ad","#5f5850"],ch:[]},
+ {site:"윤OO · 동탄 롯데캐슬",size:"40평대",style:"내추럴",space:["침실","아이방"],open:"공개",tone:["#e3dbd1","#c4b6a6"],ch:["블로그"]},
+ {site:"박OO · 목동 트라팰리스",size:"40평대",style:"미드센추리",space:["거실","다이닝"],open:"공개",tone:["#d6c8b4","#9b7e5d"],ch:["인스타","블로그","오늘의집"]},
+ {site:"한OO · 성수 아크로",size:"20평대 이하",style:"모던",space:["원룸"],open:"동의 대기",tone:["#d0cbc6","#7a736c"],ch:[]},
+ {site:"정OO · 판교 푸르지오",size:"30평대",style:"모던 클래식",space:["거실"],open:"공개",tone:["#dad3cb","#a69a8f"],ch:["인스타"]},
+ {site:"최OO · 마포 래미안",size:"20평대 이하",style:"내추럴",space:["거실","침실"],open:"공개",tone:["#e6dfd6","#bfae9a"],ch:["오늘의집"]},
+];
+const won=n=>n.toLocaleString("ko-KR");
+const man=n=>Math.round(n/10000).toLocaleString("ko-KR")+"만";
+const $=s=>document.querySelector(s);
+
+/* 화면 전환 */
+const TITLES={today:"오늘",customers:"고객 관리",contracts:"계약 관리",board:"진행 보드",portfolio:"포트폴리오"};
+const ADD={customers:"+ 고객 등록",portfolio:"+ 포트폴리오 등록"};
+function route(){
+  const v=(location.hash.slice(1)||"today");
+  Object.keys(TITLES).forEach(k=>$("#v-"+k).hidden=k!==v);
+  document.querySelectorAll("a[data-v]").forEach(a=>a.setAttribute("aria-current",a.dataset.v===v?"page":"false"));
+  document.querySelectorAll(".detail.open").forEach(d=>{if(d.id!==keepSheet)d.classList.remove("open")});keepSheet=null;
+  $("#title").textContent=TITLES[v]||"오늘";
+  $("#addBtn").hidden=!ADD[v];$("#addBtn").textContent=ADD[v]||"";
+  scrollTo(0,0);
+}
+addEventListener("hashchange",route);
+/* 휴대폰: 목록에서 누르면 상세를 화면 전체로 열고, '목록'으로 닫기 */
+const isPhone=()=>matchMedia("(max-width:760px)").matches;
+let keepSheet=null;
+function openSheet(id){if(isPhone()){$("#"+id).classList.add("open");$("#"+id).scrollTop=0;}}
+document.addEventListener("click",e=>{if(e.target.closest("[data-back]"))e.target.closest(".detail").classList.remove("open");});
+const BACK=`<button class="back" data-back>‹ 목록</button>`;
+
+/* 오늘 */
+function renderToday(){
+  $("#k-active").textContent=C.filter(c=>c.stage>=2&&c.stage<=5).length+"곳";
+  $("#k-shoot").textContent=C.filter(c=>c.stage===5).length+"곳";
+  const max=Math.max(...STAGES.map((_,i)=>C.filter(c=>c.stage===i).length));
+  $("#stageBars").innerHTML=STAGES.map((s,i)=>{const n=C.filter(c=>c.stage===i).length;
+    return `<div class="stg"><span>${s}</span><span class="bar"><i style="width:${n/max*100}%"></i></span><b>${n}</b></div>`}).join("");
+}
+
+/* 고객 */
+const ctsOf=u=>C.filter(c=>c.name===u.name);
+function cuStatus(u){const cs=ctsOf(u);
+  if(cs.some(c=>c.stage>=2&&c.stage<6))return "계약 고객";
+  if(cs.some(c=>c.stage<2))return cs.some(c=>c.stage===6)?"재문의":"상담 중";
+  return cs.length?"완료 고객":"상담 중";}
+let cuFilt="all",cuSel=CU[0].name;
+function cuRows(){
+  const q=$("#cuQ").value.trim();
+  return CU.filter(u=>{
+    if(q&&!(u.name+u.tel+ctsOf(u).map(c=>c.site).join("")).includes(q))return false;
+    const s=cuStatus(u);
+    if(cuFilt==="상담 중")return s==="상담 중"||s==="재문의";
+    if(cuFilt!=="all")return s===cuFilt;
+    return true;});
+}
+const stChip=s=>`<span class="chip ${s==="계약 고객"?"gold":s==="완료 고객"?"":"line"}">${s}</span>`;
+function renderCustomers(){
+  const list=cuRows();
+  if(list.length&&!list.some(u=>u.name===cuSel))cuSel=list[0].name;
+  $("#cuBody").innerHTML=list.map(u=>{const cs=ctsOf(u),sum=cs.reduce((a,c)=>a+c.price,0);
+    return `<tr data-cu="${u.name}" aria-selected="${u.name===cuSel}">
+    <td><b>${u.name}</b><div class="addr">${cs[0]?cs[0].site.split(" · ")[0]:"계약 전"}</div></td>
+    <td class="tel m-hide">${u.tel}</td>
+    <td class="m-hide"><span class="sub">${u.src}</span></td>
+    <td>${stChip(cuStatus(u))}</td>
+    <td class="num">${cs.length?`${cs.length}건<div class="sub">${man(sum)}</div>`:`<span class="sub">-</span>`}</td>
+    <td class="m-hide"><span class="sub">${u.last}</span></td>
+    <td>${u.who}</td></tr>`}).join("")||`<tr><td colspan="7" style="text-align:center;color:var(--ink-3);padding:40px">조건에 맞는 고객이 없습니다</td></tr>`;
+  if(!list.length){$("#cuDetail").innerHTML=`<div class="body" style="color:var(--ink-3);padding:40px 18px;text-align:center">조건에 맞는 고객이 없습니다</div>`;return;}
+  renderCuDetail();
+}
+function renderCuDetail(){
+  const u=CU.find(x=>x.name===cuSel),cs=ctsOf(u);
+  $("#cuDetail").innerHTML=`
+   ${BACK}<header><div><h3>${u.name} 님</h3><div class="meta">첫 문의 ${u.first} · ${u.src}</div></div><span class="sp"></span>${stChip(cuStatus(u))}</header>
+   <div class="body"><dl class="dl">
+     <dt>연락처</dt><dd>${u.tel} <button class="linkbtn">전화</button> <button class="linkbtn">문자</button></dd>
+     <dt>주소</dt><dd>${cs[0]?cs[0].addr:"아직 없음"}</dd>
+     <dt>가족</dt><dd>${u.fam}${u.pet?` · 반려동물 ${u.pet}`:""}</dd>
+     <dt>담당</dt><dd>${u.who} 프로</dd></dl></div>
+   <div class="sec"><h4>취향</h4><div class="files">${u.taste.map(t=>`<span class="chip">${t}</span>`).join("")}<button class="btn sm">+ 태그</button></div>
+     ${u.memo?`<div class="memo">${u.memo}</div>`:""}</div>
+   <div class="sec"><h4>계약 <small>${cs.length}건</small></h4>
+     ${cs.length?cs.map(c=>`<div class="cu-ct" data-ct="${c.id}"><div>${c.site}<small>${c.id} · ${c.pkg}</small></div><span class="num">${man(c.price)}</span><span class="chip ${c.stage===6?"":"line"}">${STAGES[c.stage]}</span></div>`).join("")
+       :`<p style="margin:0;color:var(--ink-3);font-size:13px">아직 계약이 없습니다. 계약리스트DB에 들어오면 여기에 붙습니다.</p>`}</div>
+   <div class="sec"><h4>포트폴리오 사용 <small>${u.consent==="동의"?"사진 공개 동의 받음":u.consent==="미동의"?"외부 공개 안 함":"아직 묻지 않음"}</small></h4>
+     <div class="seg" style="font-size:12px">${["동의","대기","미동의"].map(s=>`<button data-consent="${s}" aria-pressed="${u.consent===s}">${s==="대기"?"묻기 전":s}</button>`).join("")}</div></div>
+   <div class="sec"><h4>상담·연락 기록</h4><ul class="log">${u.log.map(l=>`<li><time>${l[0]}</time>${l[1]} · ${l[2]}</li>`).join("")}</ul>
+     <div class="addlog"><input id="logIn" placeholder="통화·문자·방문 내용 남기기"><button class="btn sm" id="logBtn">기록</button></div></div>`;
+}
+$("#cuBody").addEventListener("click",e=>{const tr=e.target.closest("tr[data-cu]");if(!tr)return;cuSel=tr.dataset.cu;renderCustomers();openSheet("cuDetail");});
+$("#cuQ").addEventListener("input",renderCustomers);
+$("#cuSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cuFilt=b.dataset.f;
+  document.querySelectorAll("#cuSeg button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderCustomers();});
+$("#cuDetail").addEventListener("click",e=>{
+  const ct=e.target.closest("[data-ct]");if(ct){openContract(ct.dataset.ct);return;}
+  const cn=e.target.closest("[data-consent]");if(cn){CU.find(x=>x.name===cuSel).consent=cn.dataset.consent;renderCuDetail();return;}
+  if(e.target.id==="logBtn"){const v=$("#logIn").value.trim();if(!v)return;CU.find(x=>x.name===cuSel).log.unshift(["11.09","이혜정",v]);renderCuDetail();}
+});
+function openContract(id){sel=id;filt="all";$("#q").value="";$("#mine").checked=false;
+  document.querySelectorAll("#segFilter button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f==="all"));
+  renderContracts();keepSheet="detail";openSheet("detail");location.hash="contracts";}
+function openCustomer(name){cuSel=name;cuFilt="all";$("#cuQ").value="";
+  document.querySelectorAll("#cuSeg button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f==="all"));
+  renderCustomers();keepSheet="cuDetail";openSheet("cuDetail");location.hash="customers";}
+
+/* 계약 */
+let filt="all",sel=C[0].id;
+function rows(){
+  const q=$("#q").value.trim(),mine=$("#mine").checked;
+  return C.filter(c=>{
+    if(q&&!(c.name+c.site+c.addr+c.who).includes(q))return false;
+    if(mine&&c.who!=="이혜정")return false;
+    if(filt==="active")return c.stage>=2&&c.stage<6;
+    if(filt==="money")return c.paid<c.of;
+    if(filt==="done")return c.stage===6&&c.paid===c.of;
+    return true;});
+}
+function renderContracts(){
+  const list=rows();
+  if(list.length&&!list.some(c=>c.id===sel))sel=list[0].id;
+  $("#ctBody").innerHTML=list.map(c=>`<tr data-id="${c.id}" aria-selected="${c.id===sel}">
+    <td class="id">${c.id}</td>
+    <td><b>${c.name}</b><div class="addr">${c.site}</div></td>
+    <td><span class="chip">${c.pkg}</span></td>
+    <td class="num">${won(c.price)}</td>
+    <td><div class="pay">${Array.from({length:c.of},(_,i)=>`<i class="${i<c.paid?"on":""}"></i>`).join("")}</div></td>
+    <td><span class="chip ${c.stage===6?"":"line"}">${STAGES[c.stage]}</span></td>
+    <td>${c.who}</td></tr>`).join("")||`<tr><td colspan="7" style="text-align:center;color:var(--ink-3);padding:40px">조건에 맞는 계약이 없습니다</td></tr>`;
+  if(!list.length){$("#detail").innerHTML=`<div class="body" style="color:var(--ink-3);padding:40px 18px;text-align:center">왼쪽에서 계약을 고르면 여기에 자세히 나옵니다</div>`;return;}
+  renderDetail();
+}
+function renderDetail(){
+  const c=C.find(x=>x.id===sel);
+  const names=c.of===3?["계약금","중도금","잔금"]:["계약금","잔금"];
+  const ratio=c.of===3?[.3,.4,.3]:[.5,.5];
+  $("#detail").innerHTML=`
+   ${BACK}<header><div><h3>${c.name} 님</h3><div class="meta">${c.id} · ${c.site}</div><button class="linkbtn" data-cu-open="${c.name}">고객 정보 보기</button></div><span class="sp"></span><button class="btn sm">시트에서 열기</button></header>
+   <div class="body"><dl class="dl">
+     <dt>주소</dt><dd>${c.addr}</dd><dt>패키지</dt><dd>${c.pkg}</dd>
+     <dt>계약가</dt><dd><b>${won(c.price)}원</b></dd><dt>담당</dt><dd>${c.who} 프로</dd>
+     <dt>다음 할 일</dt><dd>${c.next}</dd></dl></div>
+   <div class="sec"><h4>진행 단계 <small>${STAGES[c.stage]}</small></h4>
+     <div class="steps">${STAGES.map((_,i)=>`<i class="${i<c.stage?"on":i===c.stage?"now":""}"></i>`).join("")}</div>
+     <div class="steplbl"><span>상담</span><span>계약</span><span>설치</span><span>정산</span></div></div>
+   <div class="sec"><h4>결제 <small>${c.paid}/${c.of}회 받음</small></h4>
+     ${names.map((n,i)=>`<div class="payrow"><span>${n}</span><span class="num">${won(Math.round(c.price*ratio[i]/10000)*10000)}원</span>
+       <span class="chip ${i<c.paid?"dark":""}">${i<c.paid?"입금 확인":"예정"}</span><button class="btn sm">${i<c.paid?"보기":"입금 기록"}</button></div>`).join("")}</div>
+   <div class="sec"><h4>첨부</h4><div class="files"><span class="chip line">계약서.pdf</span><span class="chip line">견적서_v2.pdf</span><span class="chip line">평면도.jpg</span><button class="btn sm">+ 파일</button></div></div>
+   <div class="sec"><h4>기록</h4><ul class="log">
+     <li><time>11.06</time>${c.who} · 단계 '${STAGES[c.stage]}'로 이동</li>
+     <li><time>11.02</time>김지하 · 계약금 입금 확인</li>
+     <li><time>10.28</time>시트에서 계약 받아 옴</li></ul></div>`;
+}
+$("#ctBody").addEventListener("click",e=>{const tr=e.target.closest("tr[data-id]");if(!tr)return;sel=tr.dataset.id;renderContracts();openSheet("detail");});
+$("#detail").addEventListener("click",e=>{const b=e.target.closest("[data-cu-open]");if(b)openCustomer(b.dataset.cuOpen);});
+$("#q").addEventListener("input",renderContracts);
+$("#mine").addEventListener("change",renderContracts);
+$("#segFilter").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;filt=b.dataset.f;
+  document.querySelectorAll("#segFilter button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderContracts();});
+
+/* 보드 */
+let boardStage=0;
+function renderBoard(){
+  $("#stageBar").innerHTML=STAGES.map((s,i)=>`<button data-stage="${i}" aria-pressed="${i===boardStage}">${s}<b>${C.filter(c=>c.stage===i).length}</b></button>`).join("");
+  $("#boardEl").innerHTML=STAGES.map((s,i)=>{const cs=C.filter(c=>c.stage===i);
+    return `<div class="col ${i===boardStage?"on":""}" data-s="${i}"><h3>${s}<span>${cs.length}</span></h3>${cs.length?"":`<p class="empty-col">이 단계에 있는 현장이 없습니다</p>`}${cs.map(c=>`
+      <div class="tk" draggable="true" data-id="${c.id}">
+        <div class="row"><b>${c.name}</b>${c.d===null?"":`<span class="dd ${c.d<=1?"soon":""}">${c.d===0?"오늘":"D-"+c.d}</span>`}</div>
+        <p>${c.site} · ${man(c.price)}</p>
+        <div class="row"><small>${c.next}</small></div>
+        <div class="prog"><i style="width:${c.done/c.total*100}%"></i></div>
+        <div class="row"><small>체크 ${c.done}/${c.total}</small><small>${c.who}</small></div>
+        ${i<6?`<button class="nextbtn" data-next="${c.id}">${STAGES[i+1]} 단계로 넘기기 →</button>`:""}
+      </div>`).join("")}</div>`}).join("");
+}
+$("#stageBar").addEventListener("click",e=>{const b=e.target.closest("[data-stage]");if(!b)return;boardStage=+b.dataset.stage;renderBoard();
+  b.scrollIntoView&&$(`#stageBar [data-stage="${boardStage}"]`).scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});});
+$("#boardEl").addEventListener("click",e=>{const b=e.target.closest("[data-next]");if(!b)return;
+  const c=C.find(x=>x.id===b.dataset.next);c.stage=Math.min(6,c.stage+1);renderAll();});
+let drag=null;
+$("#boardEl").addEventListener("dragstart",e=>{drag=e.target.closest(".tk")?.dataset.id;});
+$("#boardEl").addEventListener("dragover",e=>{if(e.target.closest(".col"))e.preventDefault();});
+$("#boardEl").addEventListener("drop",e=>{const col=e.target.closest(".col");if(!col||!drag)return;
+  const c=C.find(x=>x.id===drag);c.stage=+col.dataset.s;drag=null;renderAll();});
+
+/* 포트폴리오 */
+const F={size:["전체","20평대 이하","30평대","40평대","50평 이상"],style:["전체","모던","내추럴","모던 클래식","미드센추리"],space:["전체","거실","다이닝","침실","서재","아이방","원룸"],open:["전체","공개","내부용","동의 대기"]};
+const pick={size:"전체",style:"전체",space:"전체",open:"전체"};
+function renderFilters(){
+  document.querySelectorAll("[data-g]").forEach(sp=>{const g=sp.dataset.g;
+    sp.outerHTML=`<span data-g="${g}" style="display:contents">${F[g].map(v=>`<button class="fbtn" data-g="${g}" data-v="${v}" aria-pressed="${pick[g]===v}">${v}</button>`).join("")}</span>`;});
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".fbtn");if(!b)return;pick[b.dataset.g]=b.dataset.v;
+  document.querySelectorAll(`.fbtn[data-g="${b.dataset.g}"]`).forEach(x=>x.setAttribute("aria-pressed",x===b));renderGallery();});
+function renderGallery(){
+  const list=PF.filter(p=>(pick.size==="전체"||p.size===pick.size)&&(pick.style==="전체"||p.style===pick.style)&&(pick.space==="전체"||p.space.includes(pick.space))&&(pick.open==="전체"||p.open===pick.open));
+  $("#gallery").innerHTML=list.map(p=>`<article class="pf">
+    <div class="ph"><div data-l="BEFORE" style="background:linear-gradient(160deg,#e9e6e2,#cfcac4)"></div><div data-l="AFTER" style="background:linear-gradient(160deg,${p.tone[0]},${p.tone[1]})"></div>
+      ${p.open!=="공개"?`<span class="lock">${p.open}</span>`:""}</div>
+    <div class="in"><b>${p.site}</b><p>${p.size} · ${p.style}</p>
+      <div class="tags">${p.space.map(s=>`<span class="chip">${s}</span>`).join("")}</div>
+      <div class="ch">${["인스타","블로그","오늘의집"].map(c=>`<span class="${p.ch.includes(c)?"on":""}">${c}</span>`).join("")}</div></div>
+  </article>`).join("")||`<p style="color:var(--ink-3);padding:30px">조건에 맞는 사례가 없습니다</p>`;
+}
+
+function renderAll(){
+  $("#n-contracts").textContent=C.length;
+  $("#n-board").textContent=C.filter(c=>c.stage<6).length;
+  $("#n-pf").textContent=PF.length;
+  $("#n-cu").textContent=CU.length;
+  /* 아래 메뉴 숫자: 할 일이 있는 것만 (상담 중 고객, 받을 돈 남은 계약) */
+  $("#t-cu").textContent=CU.filter(u=>["상담 중","재문의"].includes(cuStatus(u))).length||"";
+  $("#t-ct").textContent=C.filter(c=>c.stage>=2&&c.paid<c.of).length||"";
+  renderToday();renderCustomers();renderContracts();renderBoard();
+}
+renderFilters();renderGallery();renderAll();route();
+</script>
+</body>
+</html>
